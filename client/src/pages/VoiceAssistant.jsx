@@ -215,7 +215,7 @@ const VoiceAssistant = () => {
     setProcessing(true);
 
     try {
-      const res = await axios.post("http://localhost:8000/api/chat", {
+      const res = await axios.post("https://interview-prep-ai-yrvv.onrender.com/api/chat", {
         message: text,
       });
       const aiResponse = res.data.response;

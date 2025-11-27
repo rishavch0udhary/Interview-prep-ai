@@ -37,7 +37,7 @@ const NewSession = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/interviews/start",
+        "https://interview-prep-ai-yrvv.onrender.com/api/interviews/start",
         formData
       );
       navigate(`/interview/${res.data._id}`);

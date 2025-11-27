@@ -26,7 +26,7 @@ const InterviewRoom = () => {
     const fetchInterview = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8000/api/interviews/${id}`
+          `https://interview-prep-ai-yrvv.onrender.com/api/interviews/${id}`
         );
         setInterview(res.data);
         setLoading(false);
@@ -157,7 +157,7 @@ const InterviewRoom = () => {
     setSubmitting(true);
     try {
       const res = await axios.post(
-        `http://localhost:8000/api/interviews/${id}/answer`,
+        `https://interview-prep-ai-yrvv.onrender.com/api/interviews/${id}/answer`,
         {
           questionIndex: currentQuestionIndex,
           answer: userAnswer,

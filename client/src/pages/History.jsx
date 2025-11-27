@@ -24,7 +24,7 @@ const History = () => {
     const fetchHistory = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8000/api/interviews/history"
+          "https://interview-prep-ai-yrvv.onrender.com/api/interviews/history"
         );
         setInterviews(res.data);
       } catch (err) {

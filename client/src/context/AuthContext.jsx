@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
       if (token) {
         axios.defaults.headers.common["x-auth-token"] = token;
         try {
-          const res = await axios.get("http://localhost:8000/api/auth/me");
+          const res = await axios.get("https://interview-prep-ai-yrvv.onrender.com/api/auth/me");
           setUser(res.data);
         } catch (err) {
           console.error("Token verification failed:", err);
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const res = await axios.post("http://localhost:8000/api/auth/login", {
+      const res = await axios.post("https://interview-prep-ai-yrvv.onrender.com/api/auth/login", {
         email,
         password,
       });
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (name, email, password) => {
     try {
-      const res = await axios.post("http://localhost:8000/api/auth/register", {
+      const res = await axios.post("https://interview-prep-ai-yrvv.onrender.com/api/auth/register", {
         name,
         email,
         password,
