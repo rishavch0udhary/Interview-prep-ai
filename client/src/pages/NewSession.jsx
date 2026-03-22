@@ -12,6 +12,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { API_URL } from "../context/AuthContext";
 
 const NewSession = () => {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const NewSession = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        "https://interview-prep-ai-yrvv.onrender.com/api/interviews/start",
+        `${API_URL}/api/interviews/start`,
         formData
       );
       navigate(`/interview/${res.data._id}`);
@@ -232,11 +233,10 @@ const NewSession = () => {
                       key={level}
                       type="button"
                       onClick={() => handleSelect("experience", level)}
-                      className={`py-2 px-1 rounded-xl text-sm font-bold border transition-all ${
-                        formData.experience === level
+                      className={`py-2 px-1 rounded-xl text-sm font-bold border transition-all ${formData.experience === level
                           ? "bg-emerald-100 border-emerald-500 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 dark:border-emerald-500 ring-2 ring-emerald-500/20"
                           : "bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-400 dark:hover:bg-slate-700"
-                      }`}
+                        }`}
                     >
                       {level}
                     </button>
@@ -256,11 +256,10 @@ const NewSession = () => {
                       key={diff.value}
                       type="button"
                       onClick={() => handleSelect("difficulty", diff.value)}
-                      className={`py-3 px-4 rounded-xl text-sm font-bold border transition-all flex items-center justify-center ${
-                        formData.difficulty === diff.value
+                      className={`py-3 px-4 rounded-xl text-sm font-bold border transition-all flex items-center justify-center ${formData.difficulty === diff.value
                           ? `${diff.color} ring-2 ring-offset-2 dark:ring-offset-slate-900 ring-current`
                           : "bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-400 dark:hover:bg-slate-700"
-                      }`}
+                        }`}
                     >
                       {diff.label}
                     </button>
@@ -272,11 +271,10 @@ const NewSession = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className={`w-full py-4 rounded-xl font-bold text-lg text-white shadow-lg transition-all transform hover:-translate-y-1 ${
-                    loading
+                  className={`w-full py-4 rounded-xl font-bold text-lg text-white shadow-lg transition-all transform hover:-translate-y-1 ${loading
                       ? "bg-slate-400 cursor-not-allowed"
                       : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:shadow-blue-500/25"
-                  }`}
+                    }`}
                 >
                   {loading ? (
                     <span className="flex items-center justify-center">

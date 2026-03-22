@@ -12,6 +12,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_URL } from "../context/AuthContext";
 
 const VoiceAssistant = () => {
   const navigate = useNavigate();
@@ -215,7 +216,7 @@ const VoiceAssistant = () => {
     setProcessing(true);
 
     try {
-      const res = await axios.post("https://interview-prep-ai-yrvv.onrender.com/api/chat", {
+      const res = await axios.post(`${API_URL}/api/chat`, {
         message: text,
       });
       const aiResponse = res.data.response;
@@ -307,15 +308,13 @@ const VoiceAssistant = () => {
 
             <div className="absolute inset-0 flex items-center justify-center">
               <div
-                className={`w-32 h-32 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center shadow-2xl transition-all duration-500 ${
-                  isListening ? "shadow-blue-500/50 scale-105" : ""
-                }`}
+                className={`w-32 h-32 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center shadow-2xl transition-all duration-500 ${isListening ? "shadow-blue-500/50 scale-105" : ""
+                  }`}
               >
                 <Cpu
                   size={48}
-                  className={`text-blue-500 transition-all duration-300 ${
-                    processing ? "animate-pulse" : ""
-                  }`}
+                  className={`text-blue-500 transition-all duration-300 ${processing ? "animate-pulse" : ""
+                    }`}
                 />
               </div>
             </div>
@@ -348,28 +347,27 @@ const VoiceAssistant = () => {
           {(interimTranscript ||
             (messages.length > 0 &&
               messages[messages.length - 1].role === "user")) && (
-            <div className="mb-8 p-4 rounded-xl bg-slate-900/50 border border-slate-800 backdrop-blur-sm">
-              <div className="flex items-center space-x-2 mb-2 text-xs font-mono text-slate-500 uppercase">
-                <Activity size={12} />
-                <span>Live Transcript</span>
+              <div className="mb-8 p-4 rounded-xl bg-slate-900/50 border border-slate-800 backdrop-blur-sm">
+                <div className="flex items-center space-x-2 mb-2 text-xs font-mono text-slate-500 uppercase">
+                  <Activity size={12} />
+                  <span>Live Transcript</span>
+                </div>
+                <p className="text-lg text-slate-300">
+                  {interimTranscript || messages[messages.length - 1].text}
+                  <span className="inline-block w-2 h-5 ml-1 bg-blue-500 animate-pulse align-middle" />
+                </p>
               </div>
-              <p className="text-lg text-slate-300">
-                {interimTranscript || messages[messages.length - 1].text}
-                <span className="inline-block w-2 h-5 ml-1 bg-blue-500 animate-pulse align-middle" />
-              </p>
-            </div>
-          )}
+            )}
 
           {/* Controls */}
           <div className="flex justify-center items-center gap-8">
             <button
               ref={micButtonRef}
               onClick={toggleListening}
-              className={`relative group w-20 h-20 rounded-2xl flex items-center justify-center transition-all duration-300 ${
-                isListening
+              className={`relative group w-20 h-20 rounded-2xl flex items-center justify-center transition-all duration-300 ${isListening
                   ? "bg-red-500/10 border-red-500/50 text-red-500"
                   : "bg-blue-500/10 border-blue-500/50 text-blue-500 hover:bg-blue-500/20"
-              } border-2`}
+                } border-2`}
             >
               {isListening ? <MicOff size={32} /> : <Mic size={32} />}
 

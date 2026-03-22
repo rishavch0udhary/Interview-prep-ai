@@ -14,6 +14,7 @@ import {
   XCircle,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { API_URL } from "../context/AuthContext";
 
 const History = () => {
   const [interviews, setInterviews] = useState([]);
@@ -23,9 +24,7 @@ const History = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const res = await axios.get(
-          "https://interview-prep-ai-yrvv.onrender.com/api/interviews/history"
-        );
+        const res = await axios.get(`${API_URL}/api/interviews/history`);
         setInterviews(res.data);
       } catch (err) {
         console.error(err);
@@ -187,13 +186,12 @@ const History = () => {
                       </span>
                       <span className="hidden sm:inline w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700" />
                       <span
-                        className={`capitalize px-2 py-0.5 rounded-md text-xs font-medium whitespace-nowrap ${
-                          interview.difficulty === "hard"
+                        className={`capitalize px-2 py-0.5 rounded-md text-xs font-medium whitespace-nowrap ${interview.difficulty === "hard"
                             ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
                             : interview.difficulty === "medium"
-                            ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
-                            : "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                        }`}
+                              ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
+                              : "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                          }`}
                       >
                         {interview.difficulty}
                       </span>
@@ -208,7 +206,7 @@ const History = () => {
                           0
                         ) /
                           (interview.questions.length * 10)) *
-                          100
+                        100
                       )}
                       %
                     </div>
@@ -230,13 +228,12 @@ const History = () => {
                         className="flex items-start p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800"
                       >
                         <div
-                          className={`mt-1.5 w-2 h-2 rounded-full mr-3 flex-shrink-0 ${
-                            (q.score || 0) >= 8
+                          className={`mt-1.5 w-2 h-2 rounded-full mr-3 flex-shrink-0 ${(q.score || 0) >= 8
                               ? "bg-emerald-500"
                               : (q.score || 0) >= 5
-                              ? "bg-yellow-500"
-                              : "bg-red-500"
-                          }`}
+                                ? "bg-yellow-500"
+                                : "bg-red-500"
+                            }`}
                         />
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium text-slate-700 dark:text-slate-300 line-clamp-2">

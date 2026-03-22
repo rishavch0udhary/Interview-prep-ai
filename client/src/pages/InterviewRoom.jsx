@@ -4,6 +4,7 @@ import axios from "axios";
 import { Mic, MicOff, Volume2, Send, ArrowRight, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
+import { API_URL } from "../context/AuthContext";
 
 const InterviewRoom = () => {
   const { id } = useParams();
@@ -26,7 +27,7 @@ const InterviewRoom = () => {
     const fetchInterview = async () => {
       try {
         const res = await axios.get(
-          `https://interview-prep-ai-yrvv.onrender.com/api/interviews/${id}`
+          `${API_URL}/api/interviews/${id}`
         );
         setInterview(res.data);
         setLoading(false);
@@ -152,12 +153,12 @@ const InterviewRoom = () => {
 
   const submitAnswer = async () => {
     if (!userAnswer.trim()) return;
-    // Ensure microphone is stopped before sending answer
+    // Ensure microphone is stopped before sending answer 
     if (isListening) stopListening();
     setSubmitting(true);
     try {
       const res = await axios.post(
-        `https://interview-prep-ai-yrvv.onrender.com/api/interviews/${id}/answer`,
+        `${API_URL}/api/interviews/${id}/answer`,
         {
           questionIndex: currentQuestionIndex,
           answer: userAnswer,
@@ -268,11 +269,10 @@ const InterviewRoom = () => {
                 <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                   <button
                     onClick={toggleListening}
-                    className={`flex items-center justify-center w-full md:w-auto px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
-                      isListening
+                    className={`flex items-center justify-center w-full md:w-auto px-6 py-3 rounded-xl font-medium transition-all duration-300 ${isListening
                         ? "bg-red-500/20 text-red-600 dark:text-red-400 border border-red-500/50 animate-pulse"
                         : "bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200"
-                    }`}
+                      }`}
                   >
                     {isListening ? (
                       <MicOff className="mr-2" />
@@ -356,9 +356,8 @@ const InterviewRoom = () => {
         <div className="absolute top-4 right-4">
           <button
             onClick={() => setVoiceMode((prev) => !prev)}
-            className={`px-4 py-2 rounded ${
-              voiceMode ? "bg-green-600" : "bg-gray-600"
-            } text-white`}
+            className={`px-4 py-2 rounded ${voiceMode ? "bg-green-600" : "bg-gray-600"
+              } text-white`}
           >
             {voiceMode ? "Voice On" : "Voice Off"}
           </button>

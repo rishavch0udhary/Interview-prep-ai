@@ -2,6 +2,9 @@ import { createContext, useState, useContext, useEffect } from "react";
 import axios from "axios";
 
 const AuthContext = createContext();
+export const API_URL = "http://localhost:8000";
+// export const API_URL = "https://interview-prep-ai-yrvv.onrender.com";
+
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -13,7 +16,7 @@ export const AuthProvider = ({ children }) => {
       if (token) {
         axios.defaults.headers.common["x-auth-token"] = token;
         try {
-          const res = await axios.get("https://interview-prep-ai-yrvv.onrender.com/api/auth/me");
+          const res = await axios.get(`${API_URL}/api/auth/me`);
           setUser(res.data);
         } catch (err) {
           console.error("Token verification failed:", err);
@@ -29,7 +32,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const res = await axios.post("https://interview-prep-ai-yrvv.onrender.com/api/auth/login", {
+      const res = await axios.post(`${API_URL}/api/auth/login`, {
         email,
         password,
       });
@@ -45,7 +48,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (name, email, password) => {
     try {
-      const res = await axios.post("https://interview-prep-ai-yrvv.onrender.com/api/auth/register", {
+      const res = await axios.post(`${API_URL}/api/auth/register`, {
         name,
         email,
         password,
