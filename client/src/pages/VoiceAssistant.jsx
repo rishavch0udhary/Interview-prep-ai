@@ -84,19 +84,24 @@ const VoiceAssistant = () => {
     window.speechSynthesis.cancel();
 
     const utterance = new SpeechSynthesisUtterance(text);
-    const preferredVoice = voices.find(
-      (voice) =>
-        voice.name.includes("Google US English") ||
-        voice.name.includes("Samantha") ||
-        voice.lang === "en-US"
-    );
+
+    // Prefer a clean, minimal-sounding voice
+    const preferredVoice =
+      voices.find((v) => v.name === "Google UK English Female") ||
+      voices.find((v) => v.name === "Daniel") ||
+      voices.find((v) => v.name === "Karen") ||
+      voices.find((v) => v.name.includes("Google UK English")) ||
+      voices.find((v) => v.name.includes("Samantha")) ||
+      voices.find((v) => v.lang === "en-GB") ||
+      voices.find((v) => v.lang === "en-US");
 
     if (preferredVoice) {
       utterance.voice = preferredVoice;
     }
 
-    utterance.rate = 1.0;
-    utterance.pitch = 1.0;
+    utterance.rate = 0.9;   // slightly slower for clarity
+    utterance.pitch = 0.95; // slightly lower for a calm, neutral tone
+    utterance.volume = 1.0;
 
     window.speechSynthesis.speak(utterance);
   };

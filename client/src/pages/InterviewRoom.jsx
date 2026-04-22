@@ -54,8 +54,22 @@ const InterviewRoom = () => {
     if ("speechSynthesis" in window) {
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = 1.0;
-      utterance.pitch = 1.0;
+
+      // Pick a clean, minimal voice
+      const allVoices = window.speechSynthesis.getVoices();
+      const preferredVoice =
+        allVoices.find((v) => v.name === "Google UK English Female") ||
+        allVoices.find((v) => v.name === "Daniel") ||
+        allVoices.find((v) => v.name === "Karen") ||
+        allVoices.find((v) => v.name.includes("Google UK English")) ||
+        allVoices.find((v) => v.name.includes("Samantha")) ||
+        allVoices.find((v) => v.lang === "en-GB") ||
+        allVoices.find((v) => v.lang === "en-US");
+      if (preferredVoice) utterance.voice = preferredVoice;
+
+      utterance.rate = 0.9;
+      utterance.pitch = 0.95;
+      utterance.volume = 1.0;
       if (onEnd) utterance.onend = onEnd;
       window.speechSynthesis.speak(utterance);
     } else if (onEnd) {
@@ -67,8 +81,21 @@ const InterviewRoom = () => {
     if ("speechSynthesis" in window) {
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = 1.0;
-      utterance.pitch = 1.0;
+
+      const allVoices = window.speechSynthesis.getVoices();
+      const preferredVoice =
+        allVoices.find((v) => v.name === "Google UK English Female") ||
+        allVoices.find((v) => v.name === "Daniel") ||
+        allVoices.find((v) => v.name === "Karen") ||
+        allVoices.find((v) => v.name.includes("Google UK English")) ||
+        allVoices.find((v) => v.name.includes("Samantha")) ||
+        allVoices.find((v) => v.lang === "en-GB") ||
+        allVoices.find((v) => v.lang === "en-US");
+      if (preferredVoice) utterance.voice = preferredVoice;
+
+      utterance.rate = 0.9;
+      utterance.pitch = 0.95;
+      utterance.volume = 1.0;
       window.speechSynthesis.speak(utterance);
     }
   };
